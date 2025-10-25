@@ -4,7 +4,7 @@ import { prisma } from "../db";
 
 export async function test(
   conversation: BotConversation,
-  ctx: BotConversationContext
+  ctx: BotConversationContext,
 ) {
   const user = await conversation.external(async () => {
     return await prisma.user.findUnique({
@@ -23,7 +23,7 @@ export async function test(
 
   if (allProfessions.length === 0) {
     await ctx.reply(
-      "No professions are currently available. Please inform the administrator."
+      "No professions are currently available. Please inform the administrator.",
     );
     return;
   }
@@ -41,13 +41,13 @@ export async function test(
 
   if (questions.length === 0) {
     await ctx.reply(
-      "No questions found for the test. Please inform the administrator."
+      "No questions found for the test. Please inform the administrator.",
     );
     return;
   }
 
   await ctx.reply(
-    "Starting the career test! Please answer the questions carefully."
+    "Starting the career test! Please answer the questions carefully.",
   );
 
   let currentQuestionIndex = 0;
@@ -70,7 +70,7 @@ export async function test(
       `Question ${currentQuestionIndex + 1}/${questions.length}:\n\n${currentQuestion.text}`,
       {
         reply_markup: keyboard,
-      }
+      },
     );
 
     let isValidAnswer = false;
@@ -84,7 +84,7 @@ export async function test(
 
       if (!currentQuestion.options.some((option) => option.id === optionId)) {
         await answerCtx.answerCallbackQuery(
-          "Invalid choice. Please select one of the provided options for the current question."
+          "Invalid choice. Please select one of the provided options for the current question.",
         );
       } else {
         isValidAnswer = true;
@@ -123,7 +123,7 @@ export async function test(
 
   optionEffects.forEach((effect) => {
     const professionScore = professionScores.find(
-      (profession) => profession.professionId === effect.professionId
+      (profession) => profession.professionId === effect.professionId,
     );
     if (professionScore) {
       professionScore.score += effect.score;
@@ -136,7 +136,7 @@ export async function test(
 
   if (finalProfession.score === 0) {
     await ctx.reply(
-      "Could not determine a matching profession. Please inform the administator."
+      "Could not determine a matching profession. Please inform the administator.",
     );
     return;
   }
@@ -159,6 +159,6 @@ export async function test(
   });
 
   await ctx.reply(
-    `Based on your answers, your best match is: ${testAttempt.profession.name}\n\n${testAttempt.profession.description}`
+    `Based on your answers, your best match is: ${testAttempt.profession.name}\n\n${testAttempt.profession.description}`,
   );
 }

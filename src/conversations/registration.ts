@@ -4,7 +4,7 @@ import { prisma } from "../db";
 
 export async function registration(
   conversation: BotConversation,
-  ctx: BotConversationContext
+  ctx: BotConversationContext,
 ) {
   const user = await conversation.external(async () => {
     return await prisma.user.findUnique({
@@ -14,13 +14,13 @@ export async function registration(
 
   if (user) {
     await ctx.reply(
-      `Welcome back, ${user.firstName}! You are already registered.`
+      `Welcome back, ${user.firstName}! You are already registered.`,
     );
     return;
   }
 
   await ctx.reply(
-    "Welcome! Let's get you registered. First, what is your first name?"
+    "Welcome! Let's get you registered. First, what is your first name?",
   );
 
   const firstNameCtx = await conversation.waitFor("message:text", {
@@ -42,13 +42,13 @@ export async function registration(
     "Finally, please share your phone number by using the button below.",
     {
       reply_markup: keyboard,
-    }
+    },
   );
 
   const phoneCtx = await conversation.waitFor("message:contact", {
     otherwise: (ctx) =>
       ctx.reply(
-        "Invalid input. Please share your phone number by using the button below."
+        "Invalid input. Please share your phone number by using the button below.",
       ),
   });
   const phoneNumber = phoneCtx.message.contact.phone_number;
@@ -68,6 +68,6 @@ export async function registration(
     `You're all set, ${newUser.firstName}! Welcome to the Career Test Bot.\n\nYou can now use /test to start a career test or /history to view your past results.`,
     {
       reply_markup: { remove_keyboard: true },
-    }
+    },
   );
 }

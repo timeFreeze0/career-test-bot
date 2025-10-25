@@ -56,7 +56,7 @@ bot.catch((err) => {
 });
 
 bot.start({
-    onStart: (me) => {
-      console.log(`Bot @${me.username} started successfully!`);
-    },
-});    
+  onStart: (me) => {
+    console.log(`Bot @${me.username} started successfully!`);
+  },
+});
