@@ -1,4 +1,18 @@
 {
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "format": "prettier --check src",
+    "format:fix": "prettier --write src",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:reset": "prisma migrate reset",
+    "prisma:seed": "prisma db seed"
+  },
   "devDependencies": {
     "@eslint/compat": "^1.4.0",
     "@eslint/js": "^9.38.0",
